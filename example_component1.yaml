@@ -1,0 +1,33 @@
+substitutions:
+  name: "ac-remote"
+  friendly_name: "Project Template"
+
+esphome:
+  name: "${name}"
+  nfriendly_namee: "${friendly_name}"
+
+external_components:
+  - source:
+      type: git
+      url: https://github.com/WazWazMan/EsphomeElectraRemote
+    components: [ climate_ir_electra ]
+
+climate:
+  - platform: climate_ir_electra
+    name: "AC"
+    receiver_id: rec_1
+
+remote_transmitter:
+  pin: GPIO21 # Change this to the actual pin your IR LED is connected to
+  carrier_duty_percent: 50%
+
+remote_receiver:
+  id: rec_1
+  pin:
+    number: GPIO4
+    inverted: true
+    mode:
+      input: true
+      pullup: true
+  dump: all
+  receive_symbols: 256
